@@ -274,3 +274,18 @@
   * Ctrl+Shift+L，高亮文本当中所有相同单词，选中并将光标移到词尾
   * Ctrl+D，选中下一个匹配的内容
   * Alt+鼠标点击，点击位置会多出一个光标
+# 7-2
+## git 版本回退
+* `HEAD` 表示当前版本
+  * `HEAD^` 表示上一个版本
+  * `HEAD~n` 表示第n个版本
+* `git reset --hard HEAD^` 回退到上一版本
+  * `git reset --hard ffffff` 回退到指定版本
+* `git reflog` 查看被放弃的版本号
+## 撤销修改
+* 撤销工作区修改 `git checkout -- file`
+  * 用暂存区的同名文件替换工作区的
+  * ！命令一定要包含中间的 `--`
+* 撤销暂存区的修改
+  1. `git reset HEAD <file>` 将文件取消暂存，放回工作区；
+  2. `git checkout -- file` 再撤销工作区修改，和上一步一样
