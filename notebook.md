@@ -288,7 +288,7 @@
   * ！命令一定要包含中间的 `--`
 * 撤销暂存区的修改
   1. `git reset HEAD <file>` 将文件取消暂存，放回工作区；
-  2. `git checkout -- file` 再撤销工作区修改，和上一步一样
+  2. `git checkout -- <file>` 再撤销工作区修改，和上一步一样
 ## 远程仓库
 * `git remote add origin git@github.com:user/repo.git`
   * `origin` 远程仓库名，可以修改
@@ -298,3 +298,16 @@
   * `git remote rm origin` 解除本地和远程库绑定关系
 ## 从远程克隆
 * `git clone git@github.com:nser/repo.git`
+## 分支管理
+`HEAD` 是一个指针，指向当前所在的分支，可以任何分支之间切换
+* `git branch` 查看 `*` 当前分支
+* `git checkout -b dev` 新建并切换分支
+* `git switch -c dev` 👆
+  * `git branch dev` 只新建
+  * `git checkout dev` 只切换
+    * `git switch dev` 👆
+* `git merge dev` 合并 `dev` 分支到当前分支
+  * `git merge --no-ff dev` 禁用 `FastForward` 模式
+* `git branch -d dev` 删除分支
+* `git log --graph` 合并分支图
+  * `git log --graph --pretty=oneline --abbrev-commit`
