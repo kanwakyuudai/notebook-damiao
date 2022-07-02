@@ -296,8 +296,10 @@
     * `git push origin master`
 * `git remote -v` 查看所有远程仓库
   * `git remote rm origin` 解除本地和远程库绑定关系
-## 从远程克隆
+## 从远程克隆和拉取
 * `git clone git@github.com:nser/repo.git`
+* `git checkout -b dev origin/dev` 克隆远程 `dev` 分支
+* `git branch --set-upstream-to=origin/dev dev` 建立本地 `dev` 分支与远程` origin/dev` 分支的链接
 ## 分支管理
 `HEAD` 是一个指针，指向当前所在的分支，可以任何分支之间切换
 * `git branch` 查看 `*` 当前分支
@@ -309,5 +311,14 @@
 * `git merge dev` 合并 `dev` 分支到当前分支
   * `git merge --no-ff dev` 禁用 `FastForward` 模式
 * `git branch -d dev` 删除分支
+  * `git branch -D dev` 强制删除未合并的分支
 * `git log --graph` 合并分支图
   * `git log --graph --pretty=oneline --abbrev-commit`
+## 储藏分支
+* `git stash` 储藏当前工作区，以备未来恢复
+* `git stash list` 查看工作现场列表
+* `git stash pop` 恢复并删除
+  * `git stash apply` 只恢复
+    * `git stash apply stash@{0}` 当有多个工作现场时恢复指定的现场
+  * `git stash drop` 只删除
+* `git cherry-pick fffffff` 复制一个特定修改到当前分支
