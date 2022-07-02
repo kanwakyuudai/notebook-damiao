@@ -289,3 +289,12 @@
 * 撤销暂存区的修改
   1. `git reset HEAD <file>` 将文件取消暂存，放回工作区；
   2. `git checkout -- file` 再撤销工作区修改，和上一步一样
+## 远程仓库
+* `git remote add origin git@github.com:user/repo.git`
+  * `origin` 远程仓库名，可以修改
+  * `git push -u origin master` 推送命令，`-u` 参数将 `origin` 和 `master` 关联，之后可以简化命令
+    * `git push origin master`
+* `git remote -v` 查看所有远程仓库
+  * `git remote rm origin` 解除本地和远程库绑定关系
+## 从远程克隆
+* `git clone git@github.com:nser/repo.git`
