@@ -322,3 +322,12 @@
     * `git stash apply stash@{0}` 当有多个工作现场时恢复指定的现场
   * `git stash drop` 只删除
 * `git cherry-pick fffffff` 复制一个特定修改到当前分支
+## 标签管理
+* `git tag <tagname>` 对当前分支提交添加标签
+  * `git tag <tagname> ffffff` 对过往提交添加标签
+* `git show <tagname>` 查看标签
+  * 标签总是和某个commit挂钩。如果这个commit既出现在master分支，又出现在dev分支，那么在这两个分支上都可以看到这个标签
+* `git push origin <tagname>` 推送标签到远程
+  * `git push origin --tags` 推送全部标签
+* `git tag -d <tagname>` 删除标签
+  * `git push origin :refs/tags/<tagname>` 删除远程标签
