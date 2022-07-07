@@ -1423,3 +1423,52 @@
   * 不用在如nav，article，footer等标签上
     * 以及select，input
 * 文档：https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA
+# 7-7
+## CSS 选择器
+- 类选择器 `.classname`
+- ID 选择器 `#idname`
+- 属性选择器 Attribute
+  - `[attr]`
+    - 选择有 attr 属性的标签
+  - `[attr="value"]`
+    - 有 attr 属性，且值为 value
+  - `[attr^="value"]`
+    - 值以 value 开头
+  - `[attr$="value"]`
+    - 值以 value 结尾
+  - `[attr*="value"]`
+    - 值包含 value
+  - `[attr~="value"]`
+    - 值包含以空格分隔的 value
+    - `[class~="classname"]` 基本等价于 `.classname`
+  - `[attr|="value"]`
+    - 值以 value 或者 value- 开头
+    - 常用于匹配语言代码：`en-US`
+  - `[attr operator value i]`
+    - 忽略大小写
+- 伪类选择器 Pseudo-classes
+  - 鼠标悬停 `:hover`
+  - 鼠标点击未松开 `:active`
+  - 激活焦点 `:focus`
+  - 未点开的链接 `:link`
+  - 点开过的链接 `:visited`
+  - 一组兄弟元素中的第一个元素 `:first-child`
+  - 父元素的最后一个子元素 `:last-child`
+  - `:nth-child(an+b)`
+    - 0n+b 匹配第 b 个元素
+    - 1n+0 匹配第 n 个元素
+    - 2n+0 或 even 匹配偶数
+    - 2n+1 或 odd 匹配奇数
+    - 3n+4 匹配位置为 4、7、10、13...的元素
+  - `:nth-of-type()` 具有一组兄弟节点的标签，用 n 来筛选出在一组兄弟节点的位置
+    - 和 `:nth-child()` 类似，不过只筛选相同元素，不是相同的元素会被跳过且不参与计数
+- 复合选择器
+  - `div.foo.fob[foo="bar"][title="bar"]#baz:hover:active:first-child`
+    - 👆选择一个 div 元素，具有 foo 和 fob 类、含有 foo 属性且值为 bar、含有 title 属性且值为 bar、含有 baz ID、且当鼠标悬停，点击不松开时、是一组兄弟元素中的第一个元素
+    - 不可有空格
+- 组合器
+  - `A B` 选择 B 且 B 属于 A 的后代
+  - `A > B` 选择 B 且 B 属于 A 的直接子代
+  - `A ~ B` 选择 A 之后的所有 B，A B是同层级兄弟元素，不必紧邻
+  - `A + B` 选择 A 之后的一个 B，A B是同层级兄弟元素，且紧邻
+  - `A, B` 同时选择所有 A 和 B
