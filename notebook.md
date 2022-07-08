@@ -1473,3 +1473,177 @@
   - `A + B` 选择 A 之后的一个 B，A B是同层级兄弟元素，且紧邻
     - 此选择器会循环查找，即当两个兄弟元素相同时，会再一次循环查找
   - `A, B` 同时选择所有 A 和 B
+# 7-8
+## 选择器的优先级
+- 格式：四元组👇
+  - `(0, 0, 0, 0)`
+- ID 选择器，如 `#foo`、`#bar`
+  - `(0, 1, 0, 0)`
+- 类、属性、伪类选择器，如 `.foo`、``[]`
+  - `(0, 0, 1, 0)`
+- 元素选择器、伪元素选择器，如 `p`、`span`
+  - `(0, 0, 0, 1)`
+- 内联样式 `inline style`
+  - `(1, 0, 0, 0)`
+  - 写若 `<p style="color: green;">`
+- 下列不参与优先级计算
+  - 连接符 `>` `+` `~`
+  - 通配符 `*`
+- `!important` 优先级最高
+  - 写若 `p {color: red !important;}`
+- 继承
+  - 没有优先级
+- 优先级大致顺序
+  1. 用户自定义 `!important`
+  2. 网站作者定义 `!important`
+  3. 网站作者普通样式
+  4. 用户自定义普通样式
+  5. 默认样式 `User Agent Style`
+- 优先级若一致，后出现的覆盖前面
+## 值、单位
+- 数字
+  - `0.n` 可以写为 `.n`
+- 百分比
+  - 百分比和纯数字不可互换
+- 颜色
+  - RGB
+    - red, green, blue, cyan
+    - `#ffffff`
+    - `#abc -> #aabbcc`
+    - `rgba(0->255, 0->255, 0->255, 0->1)`
+    - `rgba(r%, g%, b%, a%)`
+  - CMYK
+  - HSL, HSV
+- 长度
+  - 绝对长度／物理长度
+    - in
+    - cm
+    - mm
+    - -moz-mm
+    - pt `point` 72 分之一 inch
+    - pc `pica` 6 分之一 inch
+  - 相对长度
+    - px `pixel`
+    - em 在 font-size 中使用是相对于父元素的字体大小，在其他属性中使用是相对于自身的字体大小，如 width
+    - rem 根元素的字体大小
+    - vw 视窗宽度的 1%
+    - vh 视窗高度的 1%
+    - vmin 视窗较小尺寸的 1%
+    - vmax 视图大尺寸的 1%
+    - calc(计算)
+- 角度
+  - deg 角度
+  - rad 弧度
+    - `π rad = 180 deg`
+  - turn 圈
+    - `1 turn = 360 deg = 2π rad`
+  - `transform: rotate(180deg);`
+- 时间
+  - s, ms
+- URL
+  - `import url("aaa.css");`
+  - `background-image: url(a.png);`
+  - `url("protocol://a:b@server/pathname?a=b&c=d")`
+- CSS 关键字
+  - `display: none block inline inline-block table table-cell;`
+  - `background-color: currentColor;`
+  - `border-style: solid/dotted/dashed/ridge;`
+- 字符串
+  - `content: 'ffoo\6211oo'  "wosdf  iejf -=owiejf"   "jowiejfo";`
+- 取属性的值
+  - `content: attr(href);`
+  - `transform: rotate(30deg) skew(50deg) matrix(1,2,3,4,5,6);`
+## 字体
+- `body {font-family: sans-serif;}`
+  - 自动选择无衬线字体
+- `h1 {font-family: "MicroSoft YaHei";}`
+  - 使用指定字体
+- `h1 {font-family: "Helvetica", "微软雅黑", sans-serif;}`
+  - 字体回退
+- 字重 `font-weight`
+  - normal
+  - bold
+  - bolder
+  - lighter
+  - 100 - 900
+  - inherit
+- 字号 `font-size`
+  - xx-small = 12
+  - x-small = 14
+  - small = 15
+  - medium = 18
+  - `large`
+- `font-style`
+  - `normal`
+  - `italic`
+  - `oblique`
+    - 是 `italic` 的回退
+- `font-variant`
+  - `normal`
+  - `small-caps`
+    - 把小写字母显示成小号的大写字母
+- `font: [<font-style> || <font-variant> || <font-weight>] <font-size>[ / <line-height>] <font-family>;`
+  - `font: small-caps bold 20px / 1.2em 明体, serif;`
+  - 前三个的顺序不重要
+      + border:red  solid 1px;
+  - 如果前三个的随便哪一个值为normal，则可以省略
+  - `line-height`可以省略，但如果出现，必须加/并且出现在fz的后面
+  - fz跟ff必须出现，而且顺序也是这个顺序，不能乱
+- 文本相关
+  - 缩进 `text-indent: 2em/5%`
+    - 用`text-indent: -99999px`来把标签里的文字隐藏，然后用背景图片“替换”标签内容
+    - -2em 这种可以实现首行悬挂
+    - 2em 则可以实现首行缩进
+  - 文字水平对齐 `text-align`，`text-align-last`
+    - `left`
+    - `right`
+    - `center`
+    - `justify`
+  - 文字垂直对齐 `vertical-align`
+    - `line-height` 行高
+      - `content-area`
+      - `inline-box`
+    - `vertical-align` 这个属性适用于【内联元素】
+      - `baseline` 默认值
+        - 让元素的基线与其父元素行框的基线对齐，如果一个元素没有基线，如img，input，则让其底部与外面的文字对齐。即使行框没有文字也是一样。
+      - `sub` 元素的 baseline（或底部）会比父该行文字的 baseline 低
+      - `super` 同上，元素的 baseline 比该行内容的 baseline 要高
+      - `bottom` 目标元素的底部跟这一行的底部对齐
+      - `top` 目标元素的顶部跟这一行的顶部对齐
+      - `text-top/text-bottom`
+        - 元素的顶/底部与文字的顶/底部对齐
+      - `middle` 并不是垂直居中，而是把【元素的中间】与baseline上面0.5ex（即四分之一em）对齐
+  - `word-spacing` 词间距
+  - `letter-spacing` 字间距
+  - `text-transform：uppercase/lowercase`
+    - 全部文字大写／小写
+    - `capitalize` 首字母大写
+    - 本属性的效果先于 `font-variant` 执行
+  - `text-decoration`
+    - underline 下划线 overline 上划线 line-through 删除线
+    - 值得注意的是子元素没有办法去掉由父元素留下的各种线
+    - 另外线的位置，粗细，样式都不能指定
+    - ```text-decoration-line: line-through;
+      text-decoration-thickness: initial;
+      text-decoration-style: dashed/dotted/solid/wavy;
+      text-decoration-color: red;
+      ```
+  - `text-shadow` `box-shadow`
+    - （水平偏移 垂直偏移 模糊半径 颜色, 下一组）;
+  - `white-space`如何处理元素中的空格
+    - `normal` 连续的空白符会被合并，换行符会被当作空白符来处理。
+    - `nowrap` 和 `normal` 一样，连续的空白符会被合并。但文本内的换行无效。
+    - `pre` 连续的空白符会被保留。在遇到换行符或者 `<br>` 元素时才会换行。
+    - `pre-wrap` 连续的空白符会被保留。在遇到换行符或者`<br>`元素，或者需要为了填充「行框盒子 (line boxes)」时才会换行。
+    - `pre-line` 连续的空白符会被合并。在遇到换行符或者`<br>`元素，或者需要为了填充「行框盒子 (line boxes)」时会换行。
+    - `break-spaces` 与 `pre-wrap` 的行为相同，除了：
+      - 任何保留的空白序列总是占用空间，包括在行尾。
+      - 每个保留的空格字符后都存在换行机会，包括空格字符之间。
+      - 这样保留的空间占用空间而不会挂起，从而影响盒子的固有尺寸（最小内容大小和最大内容大小）。
+  - `word-break` 指定了怎样在单词内断行
+    - `normal` 使用默认的断行规则。
+    - `break-all` 对于 non-CJK 文本，可在任意字符间断行。
+    - `keep-all` CJK 文本不断行。Non-CJK 文本表现同 normal。
+  - `overflow-wrap` 当一个不能被分开的字符串太长而不能填充其包裹盒时，为防止其溢出，浏览器是否允许这样的单词中断换行
+    - `normal` 行只能在正常的单词断点处中断。（例如两个单词之间的空格）。
+    - `break-word` 表示如果行内没有多余的地方容纳该单词到结尾，则那些正常的不能被分割的单词会被强制分割换行。
