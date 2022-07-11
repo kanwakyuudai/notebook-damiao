@@ -1647,3 +1647,31 @@
   - `overflow-wrap` 当一个不能被分开的字符串太长而不能填充其包裹盒时，为防止其溢出，浏览器是否允许这样的单词中断换行
     - `normal` 行只能在正常的单词断点处中断。（例如两个单词之间的空格）。
     - `break-word` 表示如果行内没有多余的地方容纳该单词到结尾，则那些正常的不能被分割的单词会被强制分割换行。
+# 7-11
+## 元素框
+- 从外到内：
+  - margin
+  - border
+  - padding
+  - content
+- width 和 height 的定义
+  - content box 的宽度和高度
+## 水平格式化
+- 正常流中块级元素框的水平部分总和等于父元素的内容区宽度：
+  - 父元素 content box width 等于以下相加：
+  - `margin-left` 可以设为 auto
+  + `border-left` 必须设定值，默认为 0
+  + `padding-left` 必须设定值，默认为 0
+  + `width` 可以设为 auto
+  + `padding-right` 必须设定值，默认为 0
+  + `border-right` 必须设定值，默认为 0
+  + `margin-right` 可以设为 auto
+- 当格式化属性过分受限时，总会把 `margin-right` 设为 `auto`
+- ```css
+  {
+    <!-- 元素居中 -->
+    width: 100px;
+    margin: auto;
+  }
+
+  ```
