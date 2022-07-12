@@ -1673,5 +1673,23 @@
     width: 100px;
     margin: auto;
   }
-
   ```
+# 7-12
+## 垂直格式化
+- `margin-top` 和 `margin-bottom` 设置为 auto 会自动计算 为 0
+- 即不可以设置垂直居中
+- 垂直方向的 margin 和 padding 的百分比值基于包含块的宽度计算
+- margin 合并
+  - 父元素块若没有 border 或 padding，字元素最上和最下方的 margin 会合并
+- 合并时保留值较大者
+- BFC
+  - Block Formatting Context 块级格式化上下文
+  - 加边框不能触发BFC
+  - 功能之一是阻止 margin 跑到父元素之外；但不能阻止兄弟元素之间 margin 合并
+  - 如何触发：
+    - `display: flow-root;`
+    - `overflow: auto/hidden;`
+- 负数 margin
+  - 不叠加，取绝对值较大者
+- 正负数 margin
+  - 相互抵消
