@@ -1681,7 +1681,7 @@
 - 垂直方向的 margin 和 padding 的百分比值基于包含块的宽度计算
 - margin 合并
   - 父元素块若没有 border 或 padding，字元素最上和最下方的 margin 会合并
-- 合并时保留值较大者
+- 合并时保留绝对值较大者
 - BFC
   - Block Formatting Context 块级格式化上下文
   - 加边框不能触发BFC
@@ -1693,3 +1693,5 @@
   - 不叠加，取绝对值较大者
 - 正负数 margin
   - 相互抵消
+- BFC 包裹字元素的所有 margin-box
+  - 无BFC 包裹字元素的 border-box
