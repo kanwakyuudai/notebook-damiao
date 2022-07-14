@@ -1650,7 +1650,7 @@
 # 7-11
 ## 元素框
 - 从外到内：
-  - margin
+  - **margin**
   - border
   - padding
   - content
@@ -1659,39 +1659,70 @@
 ## 水平格式化
 - 正常流中块级元素框的水平部分总和等于父元素的内容区宽度：
   - 父元素 content box width 等于以下相加：
-  - `margin-left` 可以设为 auto
+  - `**margin**-left` 可以设为 auto
   + `border-left` 必须设定值，默认为 0
   + `padding-left` 必须设定值，默认为 0
   + `width` 可以设为 auto
   + `padding-right` 必须设定值，默认为 0
   + `border-right` 必须设定值，默认为 0
-  + `margin-right` 可以设为 auto
-- 当格式化属性过分受限时，总会把 `margin-right` 设为 `auto`
+  + `**margin**-right` 可以设为 auto
+- 当格式化属性过分受限时，总会把 `**margin**-right` 设为 `auto`
 - ```css
   {
     <!-- 元素居中 -->
     width: 100px;
-    margin: auto;
+    **margin**: auto;
   }
   ```
 # 7-12
 ## 垂直格式化
-- `margin-top` 和 `margin-bottom` 设置为 auto 会自动计算 为 0
+- `**margin**-top` 和 `**margin**-bottom` 设置为 auto 会自动计算 为 0
 - 即不可以设置垂直居中
-- 垂直方向的 margin 和 padding 的百分比值基于包含块的宽度计算
-- margin 合并
-  - 父元素块若没有 border 或 padding，字元素最上和最下方的 margin 会合并
+- 垂直方向的 **margin** 和 padding 的百分比值基于包含块的宽度计算
+- **margin** 合并
+  - 父元素块若没有 border 或 padding，字元素最上和最下方的 **margin** 会合并
 - 合并时保留绝对值较大者
 - BFC
   - Block Formatting Context 块级格式化上下文
   - 加边框不能触发BFC
-  - 功能之一是阻止 margin 跑到父元素之外；但不能阻止兄弟元素之间 margin 合并
+  - 功能之一是阻止 **margin** 跑到父元素之外；但不能阻止兄弟元素之间 **margin** 合并
   - 如何触发：
     - `display: flow-root;`
     - `overflow: auto/hidden;`
-- 负数 margin
+- 负数 **margin**
   - 不叠加，取绝对值较大者
-- 正负数 margin
+- 正负数 **margin**
   - 相互抵消
-- BFC 包裹字元素的所有 margin-box
+- BFC 包裹字元素的所有 **margin**-box
   - 无BFC 包裹字元素的 border-box
+# 7-14
+## 行内元素
+- 设置边框、外边距、内边距不影响文本堆叠
+- 常规流，行内元素盖住块元素
+  - 相同元素之间是后者覆盖前者
+- 匿名文本
+  - 未包含在行内元素中的字符串
+  - 给父级块元素设置文本属性，对匿名文本生效
+- 字符框
+  - 包含字图，`font-size` 确定字符框的高度
+- 内容区
+  - 字符框连续组成
+- 行高框
+  - 相对于字符框的高度，垂直置中对齐，`line-height`
+  - 若不设置和字体相关，各个字体的默认行高不同
+- 行间距
+  - 行高减字号
+  - 行间距的一半是半间距
+- 行内框
+  - 非替换元素：等于行高框
+  - 替换元素：`margin-box`
+- 行框
+  - 包含行内框最高点和最低点的最小框
+  - 等于本行所有元素行高最大值
+  - 有隐藏的匿名文本存在，确定基线之用
+- `vertical-align` 确定垂直偏移量
+- 行内元素的内容区与行高无关，由默认行高决定，默认行高取决于字体和字号
+- `line-height: normal;` 内容区等于行内框
+- 鼠标选区高亮是行框高度（仅限 Chrome）
+- 行框高度不一定是行高值
+  - 行框高度大于等于行内所有元素行高的最大值
