@@ -122,7 +122,7 @@ var myPow = function(x, n) {
 
 > xieran's recursion method, using formula:
 > $$
-x^n\left\{
+x^n\left\lbrace
 \begin{aligned}
 & 1 & n &= 0 \\
 & x & n &= 1 \\
