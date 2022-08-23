@@ -468,3 +468,215 @@ var fib = function(n) {
   return a
 };
 ```
+
+## 1. Two Sum
+> My thought, traversal array and handle each cases, very complicated and not necessary
+```JS
+var twoSum = function(nums, target) {
+  let sum = 0
+  let copyTarget = target
+  let output = []
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] < target && nums[i] !== 0) {
+      if (sum < copyTarget) {
+        sum += nums[i]
+        output.push(i)
+      } else if (sum === copyTarget) {
+        return output
+      } else if (sum > copyTarget){
+        sum -= nums[i]
+        output.pop(i)
+      }
+    } else if (nums[i] > target) {
+      continue
+    } else if (nums[i] === target || nums[i] === 0) {
+      output = []
+      sum += nums[i]
+      output.push(i)
+      break
+    }
+  }
+  if (sum === 0) {
+    for (let i = 0; i < nums.length; i++) {
+      if (nums[i] === target) {output.push(i)}
+    }
+  }
+  if (sum === target) {
+    for (let i = 0; i < nums.length; i++) {
+      if (nums[i] === 0) {output.push(i)}
+    }
+  }
+  return output
+};
+```
+> This code cannot handle `[3,2,4] 6` input
+
+> xieran's solution
+```JS
+var twoSum = function(nums, target) {
+  let pos = []
+  // new array record position of nums
+
+  for (let i = 0; i < nums.length; i++) {
+    let num = nums[i]
+    // take out i
+    let short = target - num
+    // see how many we short of target
+    let shortPos = pos[short]
+    // check position array see if any value is there ...
+
+    if (shortPos >= 0) {
+      return [i, shortPos]
+      // which is exactly we need
+    }
+    pos[num] = i
+    // otherwaise record current position, in case will need after
+  }
+};
+```
+
+## 338. Counting Bits
+> xieran's solution
+```JS
+var countBits = function(n) {
+  let result = [0]
+  // skip 0, since it never has 1
+  let powOf2 = 1
+  // start from 1, then 2, 4, 8, 16
+  let minusTimes = 0
+  // record how many times we minused
+
+  for (let i = 1; i <= n; i++) {
+    let removeHighestBit = i - powOf2
+    // remove the largest bit, which is 1
+    minusTimes++
+    // count 1 time
+
+    if (minusTimes === powOf2) {
+      powOf2 *= 2
+      minusTimes = 0
+      // when count equal largest bit, doubled largest bit, and reset count times
+    }
+
+    result[i] = result[removeHighestBit] + 1
+    // plus 1 back
+  }
+  return result
+};
+```
+
+## 415. Add Strings
+> My thought, almost done
+```JS
+var addStrings = function(num1, num2) {
+  if (num1 === num2) {
+    return String(num1 * 2)
+  }
+
+  if (num1 === '0') {return num2}
+  if (num2 === '0') {return num1}
+
+  let bigger = num1 < num2 ? num1 : num2
+  let sum = 0
+  let carry = 0
+  let output = ''
+
+  for (let i = 1; i < bigger.length + 2; i++) {
+    sum += +num1.charAt(num1.length - i) + +num2.charAt(num2.length - i)
+    if (sum >= 10 && carry === 0) {
+      sum -= 10
+      carry = 1
+      output = sum + output
+      sum = 0
+    } else if (sum >= 10 && carry === 1) {
+      sum -= 9
+      carry = 1
+      output = sum + output
+      sum = 0
+    } else if (sum < 10 && carry === 1){
+      sum++
+      carry = 0
+      output = sum + output
+      sum = 0
+    } else {
+      carry = 0
+      output = sum + output
+      sum = 0
+    }
+  }
+  return String(Number(output))
+};
+```
+
+> xieran's solution
+```JS
+var addStrings = function(num1, num2) {
+  let result = ''
+
+  let i = num1.length - 1
+  let j = num2.length - 1
+  // double pointer, operate 2 strings at same time
+  let carry = 0
+
+  for (; i >= 0 || j >= 0; i--, j--) {
+    let a = +num1[i] || 0
+    let b = +num2[j] || 0
+    // || 0, incase i or j beyond 0 into minus number, will return undefined
+    let sum = a + b + carry
+    let digit = sum % 10
+    carry = (sum - digit) / 10
+    result = digit + result
+  }
+
+  if (carry) {result = carry + result}
+  // if there is a carry left, plus it now
+  return result
+};
+```
+
+## 977. Squares of a Sorted Array
+> xieran's double pointer goes **away** from each other solution
+```JS
+var sortedSquares = function(nums) {
+  let minAbs = 0
+
+  for (let i = 0; i < nums.length; i++) {
+    if (Math.abs(nums[i]) < Math.abs(nums[minAbs])) {
+      minAbs = i
+    }
+    // find smallest absolute value
+  }
+
+  let j = minAbs
+  let k = minAbs
+  // double pointer, j goes left, k goes right
+
+  let result = []
+  result.push(nums[j] * nums[k])
+  // push smallest value
+  j--
+  k++
+
+  while (j >= 0 && k < nums.length ) {
+    if (Math.abs(nums[j]) < Math.abs(nums[k])) {
+      result.push(nums[j] * nums[j])
+      j--
+    } else {
+      result.push(nums[k] * nums[k])
+      k++
+    }
+  }
+
+  // incase if j or k meets end of array
+  while (j >= 0) {
+    result.push(nums[j] * nums[j])
+    j--
+  }
+  while (k < nums.length) {
+    result.push(nums[k] * nums[k])
+    k++
+  }
+
+  return result
+};
+```
