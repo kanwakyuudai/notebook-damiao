@@ -551,3 +551,160 @@ alert( num.toFixed(1) ); // "12.3"
   0.1 + 0.2 == 0.2 + 0.1 // true 相同方式損失精度
   0.25 + 0.5 == 0.75 // true 不會損失精度
   ```
+
+## 字串頪型方灋
+- 内部格式是 `UTF-16` ，不依賴枼面編碼
+- `` ` `` `` ` `` 允許嵌入 `${…}` 表达式和跨行字串
+- Unicode 字符
+  ```JS
+  alert( "\x7A" ); // z 十六進灋
+  alert( "\u00A9" ); // © 十六進灋
+  alert( "\u{20331}" ); // 佫，髙位 Unicode
+  alert( "\u{1F60D}" ); // 😍，emoji
+  ```
+- 專義字符 `\`
+  ```JS
+  alert( 'I\'m the Walrus!' ); // I'm the Walrus!
+  alert( `I'm the Walrus!` ); // I'm the Walrus!
+  ```
+- 字串長度 `.length`
+  ```JS
+  alert( `My\n`.length ); // 3
+  ```
+- 取用字符 `[]` 或 `.charAt()`
+  - 索引从 `0` 開始
+  - 沒有找到字符旹，`[]` 返囘 `undefined` ， `.charAt()` 返囘 `''`
+- 徧歷字串 `for..of`
+  ```JS
+  for (let char of "Hello") {
+  alert(char); // H,e,l,l,o
+  }
+  ```
+- 字串不可㪅攺
+- 切換大小寫 `toLowerCase()` `toUpperCase()`
+
+## 叙列方灋
+```JS
+function indexOf(array, target， from = 0) {
+  for (let i = from; i < array.length; i++) {
+    if (array[i] === target) {
+      return i
+    }
+  }
+  return -1
+}
+
+function slice(array, start = 0, end = array.length) {
+  let output = []
+  for (let i = start; i < end; i++) {
+    output.push(array[i])
+  }
+  return output
+}
+
+function slice(str, start = 0, end = str.length) {
+  let output = ''
+  for (let i = start; i < end; i++) {
+    output += str[i]
+  }
+  return output
+}
+
+function concat(array, items) {
+  if (typeof items !== 'object') {
+    array.push(items)
+  } else {
+    for (let i = 0; i < items.length; i++) {
+      array.push(items[i])
+    }
+  }
+}
+
+array.at(-1) // 冣後一項
+arrat.copyWithin(target, start, end) // 將叙列从起始到結束區間旳値放入目幖位置
+
+function at(array, index) {
+  if (index >= 0) {
+    return array[index]
+  } else {
+    return array[array.length + index]
+  }
+}
+
+function fill(array, value, start = 0, end = array.length) {
+  for (let i = start; i < end; i++) {
+    array.push(value)
+  }
+  return array
+}
+
+function flat(array, depth = 1) {
+  if (depth == 0) {
+    return array.slice()
+  }
+  let res = []
+  for (let i = 0; i < array.length; i++) {
+    if (Array.isArray(array[i])) {
+      let falttedItem = flat(array[i], depth - 1)
+      for (let j = 0; j < array[i].length; j++) {
+        res.push(falttedItem[j])
+      } else {
+        res.push(array[i])
+      }
+    }
+  }
+  return res
+}
+
+function includes(array, value) {
+  if (value !== value) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] !== array[i]) {
+        return true
+      }
+    }
+  } else {
+      for (let i = 0; i < array.length; i++) {
+      if (array[i] === value) {
+        return true
+      }
+    }
+  }
+  return false
+}
+
+function reverse(array) {
+  let mid = Math.floor(array.length / 2)
+  for (let i = 0; i < mid; i++) {
+    let j = array.length - i - 1
+
+    let t = array[j]
+    array[j] = array[i]
+    array[i] = t
+  }
+  return array
+}
+
+function max() {
+  let max = -Infinity
+  for (let i = 0; i < arguments.length; i++) {
+    if (arguments[i] > max) {
+      max = arguments[i]
+    }
+  }
+  return max
+}
+```
+# 物件 Object
+- 語灋
+```JS
+let user = new Object(); // 「構造圅數」 旳語灋
+let user = {};  // 「字面量」 旳語灋
+
+obj.prop
+obj["prop"]
+delete obj["another prop"]
+"prop" in obj // 判斷「楗」、「屬性」、「戠別子」、「下幖」是否存在於物件或者叙列
+for (let key in obj)
+
+```
